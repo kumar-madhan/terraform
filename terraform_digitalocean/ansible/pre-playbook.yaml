@@ -1,0 +1,23 @@
+---
+- name: Provisioning example droplet
+  hosts: all
+  become: yes
+  tasks:
+    - name: Package Installation - Yum
+      yum:
+        name:
+          - git
+          - epel-release
+          - wget
+          - unzip
+        state: present
+
+    - name: Copy Installation files
+      ansible.builtin.copy:
+        src: /home/admin/linux-setup/Install_DevOps_Rhel-Centos
+        dest: /home/admin/
+        mode: '0744'
+
+    - name: Run Script
+      ansible.builtin.command:
+        cmd: "/home/admin/Install_DevOps_Rhel-Centos docker"
